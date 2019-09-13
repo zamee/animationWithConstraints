@@ -11,6 +11,7 @@ class ViewController: UIViewController {
   
   // MARK: IB outlets
   
+
   @IBOutlet var loginButton: UIButton!
   @IBOutlet var heading: UILabel!
   @IBOutlet var username: UITextField!
@@ -21,7 +22,11 @@ class ViewController: UIViewController {
   @IBOutlet var cloud3: UIImageView!
   @IBOutlet var cloud4: UIImageView!
   
-  // MARK: further UI
+    @IBOutlet weak var constraintCloud1: NSLayoutConstraint!
+    @IBOutlet weak var constraintCloud2: NSLayoutConstraint!
+    @IBOutlet weak var constraintCloud3: NSLayoutConstraint!
+    @IBOutlet weak var constraintCloud4: NSLayoutConstraint!
+    // MARK: further UI
   
   let spinner = UIActivityIndicatorView(style: .whiteLarge)
   let status = UIImageView(image: UIImage(named: "banner"))
@@ -57,16 +62,26 @@ class ViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+
+    constraintCloud1.constant -= view.frame.width
+    constraintCloud2.constant -= view.frame.width
+    constraintCloud3.constant -= view.frame.width
+    constraintCloud4.constant -= view.frame.width
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-  }
-  
-  // MARK: further methods
-  
-  @IBAction func login() {
-    view.endEditing(true)
+
+   UIView.animate(withDuration: 5, delay: 1, options: [.repeat, .curveLinear], animations: {
+
+    self.constraintCloud1.constant = self.view.bounds.width * 1
+    self.constraintCloud2.constant = self.view.bounds.width * 1
+    self.constraintCloud3.constant = self.view.bounds.width * 1
+    self.constraintCloud4.constant = self.view.bounds.width * 1
+
+     self.view.layoutIfNeeded()
+    
+   }, completion: nil)
   }
   
   // MARK: UITextFieldDelegate
